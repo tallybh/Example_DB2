@@ -1,40 +1,32 @@
 ﻿using Model;
 using System;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace ViewModel
 {
-    public class CityDB
+    public class CityDB:BaseDB
     {
-        private string _connectionString = @"Data Source=DESKTOP-LEQ9VV2\SQLEXPRESS;Initial Catalog=TZ_DB_WPF;Integrated Security=True";
-        private SqlConnection _connection;
-        private SqlCommand _command;
-        private SqlDataReader _reader;
+        
 
-        public CityDB()
+        public CityDB():base("tbl_Users") 
         {
-            _connection = new SqlConnection(_connectionString);
-            _command = new SqlCommand();
-            _command.Connection = _connection;
+            
         }
 
 
         public CityList SelectAll()
         {
-            _command.CommandText = "SELECT * FROM CityTbl ";
+            _command.CommandText = $"SELECT * FROM {_tableName} ";
             CityList lst = Select();
             return lst;
         }
 
         public City SelectById(int id)
         {
-            _command.CommandText = string.Format("SELECT * FROM CityTbl where CityID = {0}", id);
+            _command.CommandText = $"SELECT * FROM {_tableName} where CityID = {id}";
             CityList lst = Select();
-            if (lst.Count > 0)
-            {
-                return lst[0];
-            }
-            return null;
+            return lst.FirstOrDefault();
         }
 
 
@@ -53,7 +45,7 @@ namespace ViewModel
                 {
                     city = new City();
                     city.Id = (int)_reader["CityID"];
-                    city.Name = (string)_reader["CityName"].ToString();
+                    city.Name = _reader["CityName"].ToString();
                     list.Add(city);
                 }
             }
