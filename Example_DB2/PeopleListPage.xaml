@@ -1,0 +1,37 @@
+﻿<Page x:Class="Example_DB2.PeopleListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Example_DB2"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PeopleListPage"
+      Loaded="Page_Loaded"
+      >
+
+    <Grid>
+        <TextBlock x:Name="Title" HorizontalAlignment="Center"/>
+
+     <!--   <ListView x:Name="lstView" Grid.Row="1" SelectionChanged="LstView_SelectionChanged" Background="AliceBlue">  -->
+        <ListView x:Name="lstView" Grid.Row="1" Background="AliceBlue">
+         <!--<ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Update" Click="MenuItem_Upd" />
+                    <MenuItem Header="Delete" Click="MenuItem_Del" />
+                </ContextMenu>
+            </ListView.ContextMenu>    -->
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="מס זהות" Width="80" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="שם פרטי" Width="80" DisplayMemberBinding="{Binding FirstName}" />
+                    <GridViewColumn Header="שם משפחה" Width="80" DisplayMemberBinding="{Binding LastName}" />
+                    <GridViewColumn Header="כתובת" Width="auto" DisplayMemberBinding="{Binding Address}" />
+               <!--     <GridViewColumn Header="עיר" Width="80" DisplayMemberBinding="{Binding City.Name}" /> -->
+                    <GridViewColumn x:Name="ClsCol" Header="כיתה" Width="40" DisplayMemberBinding="{Binding Class.ClassName}" />
+                    <GridViewColumn x:Name="ExpCol" Header="ניסיון" Width="40" DisplayMemberBinding="{Binding Experience}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Page>
